@@ -28,15 +28,8 @@ public class PlayerController : MonoBehaviour
 
         
         Vector3 direction = new Vector3(movement.x, movement.y, 0).normalized;
-        if (direction.magnitude == 0)
-        {
-            if (rb.velocity.magnitude > 0)
-            {
-                //rb.velocity = rb.velocity * 0.99f * Time.deltaTime;
-            }
-            return;
-        }
-        rb.velocity = direction * speed;
+        // Gradually increase velocity to avoid sudden jumps
+        rb.velocity = Vector3.Lerp(rb.velocity, direction * speed, 0.1f);
         //transform.position += direction * speed * Time.deltaTime;
         
     }
