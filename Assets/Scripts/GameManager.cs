@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Instance.currentScore = 0;
         Instance.scoreText = GameObject.Find("Temporary Score Keeper").GetComponent<TextMeshProUGUI>();
     }
 

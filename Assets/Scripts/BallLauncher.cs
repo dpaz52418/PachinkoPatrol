@@ -59,7 +59,7 @@ public class BallLauncher : MonoBehaviour
         }
 
         // For now, try launching some balls.
-        //StartLaunchingBalls();
+        StartLaunchingBalls();
     }
 
     void Update()
