@@ -63,7 +63,6 @@ public class ArmGrabber : MonoBehaviour
 
                 Vector3 angularVel = armRb.angularVelocity;
                 
-                // Calculate tangential velocity at hand position
                 Vector3 handOffset = handPosition.position - transform.position;
 
                 heldBallRb.velocity = handOffset * throwForce;

@@ -24,6 +24,7 @@ public class DeletionZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         if (tileTag == "")
         {
             tileTag = gameObject.tag;
