@@ -2264,6 +2264,7 @@ MonoBehaviour:
   handPosition: {fileID: 219216567}
   grabbableTags:
   - BasicBall
+  throwForce: 20
 --- !u!1 &1546591703
 GameObject:
   m_ObjectHideFlags: 0

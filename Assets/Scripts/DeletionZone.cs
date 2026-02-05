@@ -42,7 +42,7 @@ public class DeletionZone : MonoBehaviour
 
         if (ballTags.Contains(collision.gameObject.tag))
         {
-            Debug.Log("Collided with a ball!");
+            //Debug.Log("Collided with a ball!");
             resultingBall = collision.gameObject.tag;
             Destroy(collision.gameObject);
         }

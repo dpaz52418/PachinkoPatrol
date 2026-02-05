@@ -7,14 +7,21 @@ public class ArmGrabber : MonoBehaviour
     [SerializeField] private Transform handPosition;  // Empty GameObject at hand location
     public List<string> grabbableTags = new List<string> { "BasicBall" };
     
+    [Header("Throw Settings!")]
+    public float throwForce = 5f;
+
+    private Rigidbody armRb;
     private List<GameObject> ballsInRange = new List<GameObject>();
     private GameObject heldBall = null;
     private Rigidbody heldBallRb = null;
+
+    void Start()
+    {
+        armRb = GetComponent<Rigidbody>();
+    }
     
     void OnGrab(InputValue value)
     {
-        Debug.Log("========== ONGRAB CALLED ==========");
-        Debug.Log("IsPressed: " + value.isPressed);
         if (value.isPressed)
         {
             Debug.Log("grab!");
@@ -53,6 +60,15 @@ public class ArmGrabber : MonoBehaviour
             if (heldBallRb != null)
             {
                 heldBallRb.isKinematic = false;
+
+                Vector3 angularVel = armRb.angularVelocity;
+                
+                // Calculate tangential velocity at hand position
+                Vector3 handOffset = handPosition.position - transform.position;
+
+                heldBallRb.velocity = handOffset * throwForce;
+                
+                Debug.Log("Threw with velocity: " + heldBallRb.velocity.magnitude);
             }
             
             Debug.Log("Dropped: " + heldBall.name);
@@ -75,7 +91,7 @@ public class ArmGrabber : MonoBehaviour
         if (grabbableTags.Contains(other.tag) && !ballsInRange.Contains(other.gameObject))
         {
             ballsInRange.Add(other.gameObject);
-            Debug.Log("Ball in range: " + other.name);
+            //Debug.Log("Ball in range: " + other.name);
         }
     }
     
@@ -84,7 +100,7 @@ public class ArmGrabber : MonoBehaviour
         if (ballsInRange.Contains(other.gameObject))
         {
             ballsInRange.Remove(other.gameObject);
-            Debug.Log("Ball left range: " + other.name);
+            //Debug.Log("Ball left range: " + other.name);
         }
     }
 }
