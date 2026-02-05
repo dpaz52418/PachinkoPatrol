@@ -1,11 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DeletionZone : MonoBehaviour
 {
     [Header("The types of balls we can detect.")]
-    [SerializeField] private List<string> ballTags;
+    [SerializeField] private static List<string> ballTags;
+
+    [Header("The Game Manager.")]
+    [SerializeField] public GameManager gameManager;
+
+    /*
+
+    [Header("Amount to count towards score when ball enters deletion zone.")]
+    [SerializeField] private int amountToCount;
+    */
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +37,7 @@ public class DeletionZone : MonoBehaviour
             Debug.Log("Collided with a ball!");
             Destroy(collision.gameObject);
         }
+
         
     }
 }
