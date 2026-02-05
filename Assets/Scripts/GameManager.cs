@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("The current text displaying the score.")]
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
 
-    [SerializeField] public UnityEvent onScoreChanged;
+    public UnityEvent onScoreChanged;
 
   
     public static GameManager Instance { get; private set; }
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         Instance.currentScore += amount;
         Instance.scoreText.text = "Current Score: " + Instance.currentScore;
+        Debug.Log("score updated");
     }
 
 }

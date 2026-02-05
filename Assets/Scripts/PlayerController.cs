@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         movement = value.Get<Vector2>();
-        Debug.Log("Movement Input: " + movement);
+        //Debug.Log("Movement Input: " + movement);
     }
 
     // Start is called before the first frame update
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             rb.velocity = Vector3.zero;
-            Debug.Log("Collided with Wall");
+            //Debug.Log("Collided with Wall");
         }
     }
 }

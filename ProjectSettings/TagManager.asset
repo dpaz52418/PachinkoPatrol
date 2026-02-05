@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Wall
   - BasicBall
+  - NonScore Tile
+  - Score Tile
   layers:
   - Default
   - TransparentFX
