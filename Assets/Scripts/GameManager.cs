@@ -16,10 +16,14 @@ public class GameManager : MonoBehaviour
     [Header("Total score right now.")]
     [SerializeField] private int currentScore = 0;
 
+    [Header("Total balance in money.")] // Temporarily in dollars for simplicity.
+    [SerializeField] private int currentBalance = 0;
+
     [Header("The current text displaying the score.")]
     // Note that this might change between the two levels. Will not have anything on the Title Screen.
     [SerializeField] private TMPro.TextMeshProUGUI scoreText = null;
-
+    [SerializeField] private TMPro.TextMeshProUGUI dayText = null;
+    [SerializeField] private TMPro.TextMeshProUGUI balanceText = null;
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private SceneLoader sceneLoader;
@@ -42,6 +46,22 @@ public class GameManager : MonoBehaviour
      if (sceneLoader == null)
         {
             sceneLoader = FindObjectOfType<SceneLoader>();
+        }
+    }
+
+    public static void UpdateDayText(int day)
+    {
+        if (Instance.dayText != null)
+        {
+            Instance.dayText.text = "Day: " + day;
+        }
+    }
+
+    public static void UpdateBalanceText(int balance)
+    {
+        if (Instance.balanceText != null)
+        {
+            Instance.balanceText.text = "Balance: $" + balance;
         }
     }
 
@@ -91,6 +111,11 @@ public class GameManager : MonoBehaviour
         {
             Instance.currentScore = 0;
             Instance.scoreText = GameObject.Find("Temporary Score Keeper").GetComponent<TextMeshProUGUI>();
+            Instance.dayText = GameObject.Find("Day Indicator Text").GetComponent<TextMeshProUGUI>();
+            UpdateDayText(Instance.currentLevel);
+
+            Instance.balanceText = GameObject.Find("Current Balance").GetComponent<TextMeshProUGUI>();
+            UpdateBalanceText(Instance.currentBalance);
         }
     }
 
