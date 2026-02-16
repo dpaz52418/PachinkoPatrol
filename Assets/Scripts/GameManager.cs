@@ -17,12 +17,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentScore = 0;
 
     [Header("The current text displaying the score.")]
+    // Note that this might change between the two levels. Will not have anything on the Title Screen.
     [SerializeField] private TMPro.TextMeshProUGUI scoreText;
 
-    public UnityEvent onScoreChanged;
-
-  
     public static GameManager Instance { get; private set; }
+
+    [SerializeField] private SceneLoader sceneLoader;
     
 
     void Awake()
