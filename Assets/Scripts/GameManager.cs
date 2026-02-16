@@ -27,16 +27,16 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-	 if (Instance != null && Instance != this)
-	 {
-	     Destroy(gameObject);
-         SceneManager.sceneLoaded += OnSceneLoaded;
-	 }
-	 else
-	 {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-	 }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
 
      if (sceneLoader == null)
@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("Scene loaded: " + scene.name);
         if (scene.name == "Title Screen")
         {
             return;
