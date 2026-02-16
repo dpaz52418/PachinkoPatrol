@@ -92,6 +92,9 @@ public class BallLauncher : MonoBehaviour
             ballInstance.GetComponent<Rigidbody>().velocity = barrelOut.up * launchVelocity;
             totalBalls -= 1;
 
+            // Update the UI to reflect the number of balls left.
+            GameManager.UpdateBallsLeftText(totalBalls);
+
             // Break if we run out of balls.
             if (totalBalls <= 0)
             {

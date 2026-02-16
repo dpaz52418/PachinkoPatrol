@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI scoreText = null;
     [SerializeField] private TMPro.TextMeshProUGUI dayText = null;
     [SerializeField] private TMPro.TextMeshProUGUI balanceText = null;
+    [SerializeField] private TMPro.TextMeshProUGUI ballsLeftText = null;
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private SceneLoader sceneLoader;
@@ -62,6 +63,14 @@ public class GameManager : MonoBehaviour
         if (Instance.balanceText != null)
         {
             Instance.balanceText.text = "Balance: $" + balance;
+        }
+    }
+
+    public static void UpdateBallsLeftText(int ballsLeft)
+    {
+        if (Instance.ballsLeftText != null)
+        {
+            Instance.ballsLeftText.text = "Balls Left: " + ballsLeft;
         }
     }
 
@@ -116,6 +125,8 @@ public class GameManager : MonoBehaviour
 
             Instance.balanceText = GameObject.Find("Current Balance").GetComponent<TextMeshProUGUI>();
             UpdateBalanceText(Instance.currentBalance);
+
+            Instance.ballsLeftText = GameObject.Find("Balls Left").GetComponent<TextMeshProUGUI>();
         }
     }
 
