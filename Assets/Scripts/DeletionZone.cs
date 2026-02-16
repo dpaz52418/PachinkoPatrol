@@ -52,7 +52,7 @@ public class DeletionZone : MonoBehaviour
         {
             switch (resultingBall) {
                 case "BasicBall":
-                    GameManager.UpdateScore(1);
+                    GameManager.AddScore(1);
                     break;
                 default:
                     break;
