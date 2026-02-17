@@ -24,7 +24,7 @@ public class ArmGrabber : MonoBehaviour
     {
         if (value.isPressed)
         {
-            Debug.Log("grab!");
+           // Debug.Log("grab!");
             if (heldBall == null)
             {
                 TryGrabBall();
@@ -48,8 +48,10 @@ public class ArmGrabber : MonoBehaviour
             {
                 heldBallRb.isKinematic = true; 
             }
+
+            heldBall.layer = LayerMask.NameToLayer("RobotHoldBall");
             
-            Debug.Log("Grabbed: " + heldBall.name);
+           // Debug.Log("Grabbed: " + heldBall.name);
         }
     }
     
@@ -67,10 +69,11 @@ public class ArmGrabber : MonoBehaviour
 
                 heldBallRb.velocity = handOffset * throwForce;
                 
-                Debug.Log("Threw with velocity: " + heldBallRb.velocity.magnitude);
+                //Debug.Log("Threw with velocity: " + heldBallRb.velocity.magnitude);
             }
             
-            Debug.Log("Dropped: " + heldBall.name);
+            //Debug.Log("Dropped: " + heldBall.name);
+            heldBall.layer = LayerMask.NameToLayer("Default");
             heldBall = null;
             heldBallRb = null;
         }

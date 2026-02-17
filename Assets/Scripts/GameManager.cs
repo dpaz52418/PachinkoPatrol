@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private SceneLoader sceneLoader;
+
+    public UnityEvent onDayEnd;
     
 
     void Awake()
@@ -128,6 +130,12 @@ public class GameManager : MonoBehaviour
 
             Instance.ballsLeftText = GameObject.Find("Balls Left").GetComponent<TextMeshProUGUI>();
         }
+    }
+
+    public static void endDay()
+    {
+        Instance.onDayEnd.Invoke();
+        Debug.Log("Day ended!");
     }
 
 }

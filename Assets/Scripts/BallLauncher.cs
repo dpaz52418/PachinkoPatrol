@@ -21,6 +21,9 @@ public class BallLauncher : MonoBehaviour
     [Header("The amount of balls in the given level.")]
     [SerializeField] private int totalBalls;
 
+    [Header("The balls currently in the scene.")] // Accessible from the BallScript to manage removing instances.
+    [SerializeField] public List<GameObject> balls = new List<GameObject>();
+
     private GameObject ballInstance;
 
     // Start is called before the first frame update
@@ -90,6 +93,7 @@ public class BallLauncher : MonoBehaviour
 
             ballInstance = Instantiate(ball, barrelOut.position, barrelOut.rotation);
             ballInstance.GetComponent<Rigidbody>().velocity = barrelOut.up * launchVelocity;
+            balls.Add(ballInstance);
             totalBalls -= 1;
 
             // Update the UI to reflect the number of balls left.
@@ -98,10 +102,21 @@ public class BallLauncher : MonoBehaviour
             // Break if we run out of balls.
             if (totalBalls <= 0)
             {
+                StartCoroutine(EndDay());
                 break;
             }
 
             yield return new WaitForSeconds(timeBetweenLaunch);
         }
+    }
+
+    IEnumerator EndDay()
+    {
+        // Wait until all balls are gone before ending the day.
+        while (balls.Count > 0)
+        {
+            yield return null;
+        }
+        GameManager.endDay();
     }
 }
