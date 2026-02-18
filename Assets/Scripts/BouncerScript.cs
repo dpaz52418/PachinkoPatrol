@@ -14,14 +14,22 @@ public class BouncerScript : MonoBehaviour
     [SerializeField] private Transform bouncerTransform;
 
     [Header("Time for bouncer to extend its scale and back down.")]
-    [SerializeField] private float bounceDuration = 0.5f;
+    private float bounceDuration = 0.15f;
+
+    private bool isPopping = false;
+    private Vector3 originalScale;
+    private Coroutine bounceCoroutine;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (bouncerTransform == null)
+        {
+            bouncerTransform = this.transform;
+        }
+        originalScale = bouncerTransform.localScale;
     }
 
     // Update is called once per frame
@@ -50,16 +58,55 @@ public class BouncerScript : MonoBehaviour
             Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 bounceDirection = Vector3.Reflect(collision.relativeVelocity.normalized, collision.contacts[0].normal);
             ballRigidbody.AddForce(bounceDirection * bounceForce, ForceMode.Impulse);
+
+            
+            if (bounceCoroutine != null)
+            {
+                StopCoroutine(bounceCoroutine);
+            }
+            bounceCoroutine = StartCoroutine(ExtendandRetract());
+            
+            
         }
 
 
     }
 
-    /*
-
-    void ExtendandRetract()
+    
+    
+    IEnumerator ExtendandRetract()
     {
+        Collider col = GetComponent<Collider>();
+        col.enabled = false;
+
+        float timer = 0f;
+        float halfDuration = bounceDuration / 2f;
+
+        Vector3 targetScale = new Vector3(2f,0.39f,2f);
+        Debug.Log("Target Scale: " + targetScale);
+
+        while (timer < halfDuration)
+        {
+            float t = timer / halfDuration;
+            bouncerTransform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            timer += Time.deltaTime;
+            Debug.Log("Current Scale: " + bouncerTransform.localScale);
+            yield return null;
+        }
+
+        timer = 0f;
+
+        while (timer < halfDuration)
+        {
+            float t = timer / halfDuration;
+            bouncerTransform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            timer += Time.deltaTime;
+            yield return null;
+        }
         
+        bouncerTransform.localScale = originalScale; // Ensure it ends at the original scale
+        col.enabled = true;
+
     }
-    */
+    
 }
