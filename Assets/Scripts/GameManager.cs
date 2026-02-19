@@ -135,6 +135,7 @@ public class GameManager : MonoBehaviour
     public static void endDay()
     {
         Instance.onDayEnd.Invoke();
+        
         Debug.Log("Day ended!");
     }
 
