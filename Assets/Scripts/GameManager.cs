@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string[] levels;
 
     [Header("Number of balls for each level.")]
-    [SerializeField] private int ballsThisLevel;
+    [SerializeField] public int ballsThisLevel;
 
     [Header("Current level the player is on. Settings change accordingly.")]
     [SerializeField] private int currentLevel = 0;

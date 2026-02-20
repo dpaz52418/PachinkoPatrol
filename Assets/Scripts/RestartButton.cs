@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class RestartButton : MonoBehaviour
 {
     [SerializeField] private Button restartButton;
+    [SerializeField] private IntSelector intSelector;
 
     void Start()
     {
@@ -16,7 +17,10 @@ public class RestartButton : MonoBehaviour
         restartButton.onClick.AddListener(() =>
         {
             if (GameManager.Instance != null)
+            {
+                intSelector.FinalizeBalls();
                 GameManager.NextLevel();
+            }
         });
     }
 }
