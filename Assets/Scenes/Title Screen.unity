@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pachinko Patrol
+  m_text: PACHINKO PATROL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d5c976396f7f8444c8cff64a10bb14d4, type: 2}
   m_sharedMaterial: {fileID: 1312635337114320593, guid: d5c976396f7f8444c8cff64a10bb14d4,
