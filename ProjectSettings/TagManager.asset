@@ -8,6 +8,7 @@ TagManager:
   - BasicBall
   - NonScore Tile
   - Score Tile
+  - Play
   layers:
   - Default
   - TransparentFX

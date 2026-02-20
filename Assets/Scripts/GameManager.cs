@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
         if (Instance.currentLevel < Instance.levels.Length - 1)
         {
             Instance.currentLevel++;
+            Debug.Log("we're here");
             Instance.sceneLoader.LoadThisScene(Instance.currentLevel);
         }
         else
@@ -114,7 +115,7 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene loaded: " + scene.name);
-        if (scene.name == "Title Screen")
+        if (scene.name == "Title Screen" || scene.name == "Tutorial")
         {
             return;
         }

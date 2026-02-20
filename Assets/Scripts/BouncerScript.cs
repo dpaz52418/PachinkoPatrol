@@ -5,7 +5,7 @@ using UnityEngine;
 public class BouncerScript : MonoBehaviour
 {
     [Header("The types of balls we can detect.")]
-    [SerializeField] private static List<string> ballTags = new List<string>{"BasicBall"};
+    [SerializeField] private static List<string> ballTags = new List<string>{"BasicBall", "Play"};
 
     [Header("The force with which we will bounce the ball.")]
     [SerializeField] private float bounceForce = 10f;
@@ -16,7 +16,7 @@ public class BouncerScript : MonoBehaviour
     [Header("Time for bouncer to extend its scale and back down.")]
     private float bounceDuration = 0.15f;
 
-    private bool isPopping = false;
+    //private bool isPopping = false;
     private Vector3 originalScale;
     private Coroutine bounceCoroutine;
 

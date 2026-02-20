@@ -32,7 +32,7 @@ public class SceneLoader : MonoBehaviour
 
     //if your scenes are in the correct order
     //you can also load the next scene like this
-    public void LoadNextScene(int index){
+    public void LoadNextScene(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
@@ -41,5 +41,15 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //or 
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void loadTutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("Title Screen");
     }
 }
