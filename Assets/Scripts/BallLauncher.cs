@@ -9,6 +9,7 @@ public class BallLauncher : MonoBehaviour
 
     [Header("Ball prefab to launch. May vary.")]
     [SerializeField] private GameObject ball;
+
     
     [Header("Time between ball launches in seconds.")]
     [SerializeField] private float timeBetweenLaunch;   
@@ -18,7 +19,10 @@ public class BallLauncher : MonoBehaviour
     [SerializeField] private float maximumStartingVelocity;
     private float launchVelocity;
 
-    [Header("The amount of balls in the given level.")]
+    [Header("The Game Manager.")]
+    [SerializeField] public GameManager gameManager;
+
+    [Header("The amount of balls in the given level.")] // Given from GameManager.
     [SerializeField] private int totalBalls;
 
     [Header("The balls currently in the scene.")] // Accessible from the BallScript to manage removing instances.
@@ -30,6 +34,8 @@ public class BallLauncher : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         if (barrelOut == null)
         {
             Debug.LogError("barrelout not defined.");
@@ -68,6 +74,11 @@ public class BallLauncher : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetTotalBalls(int balls)
+    {
+        totalBalls = balls;
     }
 
     // Balls to start launching once the game begins.

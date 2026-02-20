@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [Header("Levels in the game, ready for loading.")]
     [SerializeField] private string[] levels;
 
+    [Header("Number of balls for each level.")]
+    [SerializeField] private int ballsThisLevel;
+
     [Header("Current level the player is on. Settings change accordingly.")]
     [SerializeField] private int currentLevel = 0;
 
@@ -17,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentScore = 0;
 
     [Header("Total balance in money.")] // Temporarily in dollars for simplicity.
-    [SerializeField] private int currentBalance = 0;
+    [SerializeField] public int currentBalance = 0;
 
     [Header("The current text displaying the score.")]
     // Note that this might change between the two levels. Will not have anything on the Title Screen.
@@ -28,8 +31,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [SerializeField] private SceneLoader sceneLoader;
+    [SerializeField] private BallLauncher ballLauncher = null;
 
     public UnityEvent onDayEnd;
+
+    private bool goldenArchBought = false;
     
 
     void Awake()
@@ -80,7 +86,7 @@ public class GameManager : MonoBehaviour
     public static void AddScore(int amount)
     {
         Instance.currentScore += amount;
-        Instance.scoreText.text = "Current Score: " + Instance.currentScore;
+        Instance.scoreText.text = "Score: " + Instance.currentScore;
         Debug.Log("score updated: " + Instance.currentScore);
     }
 
@@ -92,18 +98,44 @@ public class GameManager : MonoBehaviour
         Debug.Log("score updated: " + Instance.currentScore);
     }
 
-    public static void NextLevel()
+    // Cashes out the current score by multiplying it by 2 and adding to balance
+    public static void CashOut()
     {
-        if (Instance.currentLevel < Instance.levels.Length - 1)
+        Instance.currentBalance += Instance.currentScore * 5;
+        Instance.currentScore = 0;
+        Instance.scoreText.text = "Score: " + Instance.currentScore;
+        UpdateBalanceText(Instance.currentBalance);
+        Debug.Log("Cashed out... Balance: $" + Instance.currentBalance);
+    }
+
+    // Purchases the Golden Arch upgrade if balance is sufficient
+    public static void PurchaseGoldenArch(int currentBalance)
+    {
+        if (currentBalance >= 150)
         {
+            Instance.currentBalance -= 150;
+            UpdateBalanceText(Instance.currentBalance);
             Instance.currentLevel++;
-            Debug.Log("we're here");
-            Instance.sceneLoader.LoadThisScene(Instance.currentLevel);
+            UpdateDayText(Instance.currentLevel);
+            Instance.goldenArchBought = true;
+            Debug.Log("Golden Arch purchased! Level upgraded to: " + Instance.currentLevel);
         }
         else
         {
-            Debug.Log("No more levels to load!");
+            Debug.Log("Insufficient balance! Need $150 but have $" + currentBalance);
         }
+    }
+
+    public static void NextLevel()
+    {
+        if (!Instance.goldenArchBought)
+        {
+            Debug.Log("Golden Arch not purchased yet! Cannot proceed to next level.");
+            Instance.sceneLoader.LoadThisScene("Pachinko1");
+        } else {
+            Instance.sceneLoader.LoadThisScene("Pachinko2");
+        }
+
     }
 
     // Temporary for reloading the scene for demo.
@@ -130,13 +162,23 @@ public class GameManager : MonoBehaviour
             UpdateBalanceText(Instance.currentBalance);
 
             Instance.ballsLeftText = GameObject.Find("Balls Left").GetComponent<TextMeshProUGUI>();
+
+            if (ballLauncher == null)
+            {
+                ballLauncher = FindObjectOfType<BallLauncher>();
+            }
+
+            if (ballLauncher != null)
+            {
+                ballLauncher.SetTotalBalls(ballsThisLevel);
+            }
         }
     }
 
     public static void endDay()
     {
         Instance.onDayEnd.Invoke();
-        
+        CashOut();
         Debug.Log("Day ended!");
     }
 

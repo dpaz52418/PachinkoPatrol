@@ -16,7 +16,7 @@ public class RestartButton : MonoBehaviour
         restartButton.onClick.AddListener(() =>
         {
             if (GameManager.Instance != null)
-                GameManager.Instance.ReloadScene();
+                GameManager.NextLevel();
         });
     }
 }
