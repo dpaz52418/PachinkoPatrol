@@ -14,6 +14,8 @@ public class DeletionZone : MonoBehaviour
     [Header("The tile's tag.")]
     private string tileTag = "";
 
+    [SerializeField] private AudioSource winSound;
+
     /*
 
     [Header("Amount to count towards score when ball enters deletion zone.")]
@@ -56,6 +58,10 @@ public class DeletionZone : MonoBehaviour
             switch (resultingBall) {
                 case "BasicBall":
                     GameManager.AddScore(1);
+                    if (winSound != null)
+                    {
+                        winSound.Play();
+                    }
                     break;
                 default:
                     break;

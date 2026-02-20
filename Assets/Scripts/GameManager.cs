@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int ballsThisLevel;
 
     [Header("Current level the player is on. Settings change accordingly.")]
-    [SerializeField] private int currentLevel = 0;
+    [SerializeField] private int currentLevel = 1;
 
     [Header("Total score right now.")]
     [SerializeField] private int currentScore = 0;
@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour
 
     public static void NextLevel()
     {
+        Instance.currentLevel++;
         if (!Instance.goldenArchBought)
         {
             Debug.Log("Golden Arch not purchased yet! Cannot proceed to next level.");
@@ -165,7 +166,8 @@ public class GameManager : MonoBehaviour
 
             if (ballLauncher == null)
             {
-                ballLauncher = FindObjectOfType<BallLauncher>();
+                //ballLauncher = FindObjectOfType<BallLauncher>();
+                Instance.ballLauncher = GameObject.Find("Ball Launcher").GetComponent<BallLauncher>();
             }
 
             if (ballLauncher != null)

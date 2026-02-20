@@ -15,6 +15,8 @@ public class ArmGrabber : MonoBehaviour
     private GameObject heldBall = null;
     private Rigidbody heldBallRb = null;
 
+    [SerializeField] private AudioSource fireSound;
+
     void Start()
     {
         armRb = GetComponent<Rigidbody>();
@@ -68,6 +70,11 @@ public class ArmGrabber : MonoBehaviour
                 Vector3 handOffset = handPosition.position - transform.position;
 
                 heldBallRb.velocity = handOffset * throwForce;
+
+                if (fireSound != null)
+                {
+                    fireSound.Play();
+                }
                 
                 //Debug.Log("Threw with velocity: " + heldBallRb.velocity.magnitude);
             }

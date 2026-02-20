@@ -5,7 +5,7 @@ public class IntSelector : MonoBehaviour
 {
     public TextMeshProUGUI valueText;
 
-    private int value = 0;
+    private int value = 1;
     private GameManager gameManager;
 
     void Start()
@@ -16,6 +16,7 @@ public class IntSelector : MonoBehaviour
 
     public void Increase()
     {
+        Debug.Log("made it here");
         if (value < gameManager.currentBalance)
         {
             value++;
@@ -25,7 +26,7 @@ public class IntSelector : MonoBehaviour
 
     public void Decrease()
     {
-        if (value > 0)
+        if (value > 1)
         {
             value--;
             UpdateDisplay();

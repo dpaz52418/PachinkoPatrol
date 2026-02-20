@@ -20,6 +20,8 @@ public class BouncerScript : MonoBehaviour
     private Vector3 originalScale;
     private Coroutine bounceCoroutine;
 
+    [SerializeField] private AudioSource bounceSound;
+
 
 
     // Start is called before the first frame update
@@ -42,7 +44,7 @@ public class BouncerScript : MonoBehaviour
     {
         foreach (ContactPoint contact in collision.contacts)
         {
-            Debug.Log("Made it here");
+            //Debug.Log("Made it here");
             Debug.DrawRay(
                 contact.point,
                 contact.normal * 3f,
@@ -54,11 +56,15 @@ public class BouncerScript : MonoBehaviour
 
         if (ballTags.Contains(collision.gameObject.tag))
         {
-            Debug.Log("Collided with a ball.");
+            //Debug.Log("Collided with a ball.");
             Rigidbody ballRigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 bounceDirection = Vector3.Reflect(collision.relativeVelocity.normalized, collision.contacts[0].normal);
             ballRigidbody.AddForce(bounceDirection * bounceForce, ForceMode.Impulse);
 
+            if (bounceSound != null)
+            {
+                bounceSound.Play();
+            }
             
             if (bounceCoroutine != null)
             {
@@ -83,14 +89,14 @@ public class BouncerScript : MonoBehaviour
         float halfDuration = bounceDuration / 2f;
 
         Vector3 targetScale = new Vector3(2f,0.39f,2f);
-        Debug.Log("Target Scale: " + targetScale);
+        //Debug.Log("Target Scale: " + targetScale);
 
         while (timer < halfDuration)
         {
             float t = timer / halfDuration;
             bouncerTransform.localScale = Vector3.Lerp(originalScale, targetScale, t);
             timer += Time.deltaTime;
-            Debug.Log("Current Scale: " + bouncerTransform.localScale);
+            //Debug.Log("Current Scale: " + bouncerTransform.localScale);
             yield return null;
         }
 
